@@ -1,0 +1,15 @@
+{
+  "name": "sql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^1.4.2",
+    "lodash": "^3.10.1"
+  }
+}

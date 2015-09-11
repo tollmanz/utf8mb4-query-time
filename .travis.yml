@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+    - stable
+before_script:
+    - npm install
+    - node index.js > sql/import.sql
+script:
+    - mysql -e 'CREATE DATABASE app;'
+    - mysql < sql/createUTF8.sql
+    - mysql < sql/import.sql
+    - mysql < sql/oldQuery.sql
+    - mysql < sql/newQuery.sql
+    - mysql < sql/createUTF8mb4.sql
+    - mysql < sql/import.sql
+    - mysql < sql/oldQuery.sql
+    - mysql < sql/newQuery.sql
