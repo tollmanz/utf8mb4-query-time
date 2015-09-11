@@ -7,11 +7,11 @@ before_script:
 script:
     - mysql -e 'CREATE DATABASE app;'
     - mysql < sql/createUTF8.sql
-    - mysql app < sql/import.sql
+    - travis_wait mysql app < sql/import.sql
     - mysql < sql/oldQuery.sql
     - mysql < sql/newQuery.sql
     - mysql < sql/drop.sql
     - mysql < sql/createUTF8mb4.sql
-    - mysql app < sql/import.sql
+    - travis_wait mysql app < sql/import.sql
     - mysql < sql/oldQuery.sql
     - mysql < sql/newQuery.sql
