@@ -10,6 +10,7 @@ script:
     - mysql < sql/import.sql
     - mysql < sql/oldQuery.sql
     - mysql < sql/newQuery.sql
+    - mysql < sql/drop.sql
     - mysql < sql/createUTF8mb4.sql
     - mysql < sql/import.sql
     - mysql < sql/oldQuery.sql
