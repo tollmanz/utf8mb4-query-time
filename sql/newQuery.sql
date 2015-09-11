@@ -1,5 +1,7 @@
 USE app;
 
+SET profiling = 1;
+
 SELECT DISTINCT meta_key
 FROM wp_postmeta
 WHERE meta_key NOT BETWEEN '_' AND '_z'

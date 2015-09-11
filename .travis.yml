@@ -6,7 +6,6 @@ before_script:
     - node index.js > sql/import.sql
 script:
     - mysql -e 'CREATE DATABASE app;'
-    - mysql -e 'SET profiling = 1;'
     - mysql < sql/createUTF8.sql
     - mysql app < sql/import.sql
     - mysql < sql/oldQuery.sql

@@ -1,5 +1,7 @@
 USE app;
 
+SET profiling = 1;
+
 SELECT meta_key
 FROM wp_postmeta
 GROUP BY meta_key
