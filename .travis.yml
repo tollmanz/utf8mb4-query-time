@@ -3,9 +3,11 @@ node_js:
     - stable
 before_install:
     - sudo apt-get install -y pv
+    - sudo ~/mysql/tmp
 before_script:
     - sudo cp mysql-custom.cnf /etc/mysql/conf.d/mysql-custom.cnf
-    - sudo service mysql restart
+    - sudo service mysql stop
+    - sudo service mysql start --tmpdir=~/mysql/tmp
     - node index.js > sql/import.sql
 script:
     - mysql -e 'CREATE DATABASE app;'
