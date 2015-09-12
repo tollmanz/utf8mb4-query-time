@@ -3,7 +3,7 @@ node_js:
     - stable
 before_install:
     - sudo apt-get install -y pv
-    - sudo mkdir /home/mysql/tmp
+    - sudo mkdir -p /home/mysql/tmp
     - chown mysql:mysql /home/mysql/tmp
 before_script:
     - node index.js > sql/import.sql
