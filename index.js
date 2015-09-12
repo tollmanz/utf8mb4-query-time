@@ -15,8 +15,6 @@ function randomString(len, charSet) {
 
 var vals = _.range(4000000);
 
-console.log('SET AUTOCOMMIT=0;');
-
 async.each(vals, function (num, callback) {
     var meta_id = num;
     var post_id = _.random(1, 500000);
