@@ -3,7 +3,7 @@ node_js:
     - stable
 before_install:
     - sudo apt-get install -y pv
-    - sudo ~/mysql/tmp
+    - sudo mkdir ~/mysql/tmp
 before_script:
     - sudo cp mysql-custom.cnf /etc/mysql/conf.d/mysql-custom.cnf
     - sudo service mysql stop
