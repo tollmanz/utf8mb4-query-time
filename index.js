@@ -13,7 +13,7 @@ function randomString(len, charSet) {
     return randomString;
 }
 
-var vals = _.range(4000000);
+var vals = _.range(100);
 
 async.each(vals, function (num, callback) {
     var meta_id = num;
