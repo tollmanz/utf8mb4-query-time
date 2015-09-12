@@ -3,10 +3,10 @@ node_js:
     - stable
 before_install:
     - sudo apt-get install -y pv
-    - sudo mkdir -p /home/mysql/tmp
-    - chown mysql:mysql /home/mysql/tmp
 before_script:
     - node index.js > sql/import.sql
+    - echo -e "\ninnodb_data_file_path = ibdata1:10M:autoextend" | sudo tee -a /etc/mysql/my.cnf
+    - sudo service mysql restart
 script:
     - mysql -e 'CREATE DATABASE app;'
     - mysql < sql/createUTF8.sql
