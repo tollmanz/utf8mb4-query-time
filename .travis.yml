@@ -3,8 +3,6 @@ node_js:
     - stable
 before_install:
     - sudo apt-get install -y pv
-    - sudo mkdir -p /home/travis/mysql/tmp
-    - sudo chown mysql:mysql /home/travis/mysql/tmp
 before_script:
     - sudo cp mysql-custom.cnf /etc/mysql/conf.d/mysql-custom.cnf
     - sudo service mysql restart
