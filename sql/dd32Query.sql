@@ -8,7 +8,7 @@ FROM wp_postmeta pm
 WHERE p.post_type IN ( 'post', 'page', 'current-post-type-of-the-post')
    AND meta_key NOT BETWEEN '_' AND '_z'
 HAVING meta_key NOT LIKE '\_%'
-ORDER BY meta_key DESC
+ORDER BY meta_key DESC;
 
 SHOW PROFILES;
 
@@ -19,4 +19,4 @@ FROM wp_postmeta pm
 WHERE p.post_type IN ( 'post', 'page', 'current-post-type-of-the-post')
    AND meta_key NOT BETWEEN '_' AND '_z'
 HAVING meta_key NOT LIKE '\_%'
-ORDER BY meta_key DESC
+ORDER BY meta_key DESC;
