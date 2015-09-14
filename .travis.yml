@@ -23,3 +23,13 @@ script:
     - pv sql/import.sql | mysql app
     - mysql < sql/oldQuery.sql
     - mysql < sql/newQuery.sql
+    - sudo cp mysql-custom-innodb_large_prefix.cnf /etc/mysql/conf.d/mysql-custom.cnf
+    - sudo service mysql restart
+    - mysql < sql/createMetaKeyNotMB4.sql
+    - pv sql/import.sql | mysql app
+    - mysql < sql/oldQuery.sql
+    - mysql < sql/newQuery.sql
+    - mysql < sql/createUTF8mb4innodb_large_prefix.sql
+    - pv sql/import.sql | mysql app
+    - mysql < sql/oldQuery.sql
+    - mysql < sql/newQuery.sql
