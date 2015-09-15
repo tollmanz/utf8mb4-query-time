@@ -2,16 +2,26 @@ language: node_js
 node_js:
     - stable
 env:
-    - CREATE='createUTF8' LARGE_PREFIX='false'
-    - CREATE='createUTF8' LARGE_PREFIX='true'
-    - CREATE='createUTF8mb4' LARGE_PREFIX='false'
-    - CREATE='createUTF8mb4' LARGE_PREFIX='true'
-    - CREATE='createMetaKeyNotMB4' LARGE_PREFIX='false'
-    - CREATE='createMetaKeyNotMB4' LARGE_PREFIX='true'
-    - CREATE='createMetaKeyNotMB4IndexWith191' LARGE_PREFIX='true'
-    - CREATE='createMetaKeyNotMB4IndexWith191' LARGE_PREFIX='true'
-    - CREATE='createUTF8mb4innodb_large_prefix' LARGE_PREFIX='true'
-    - CREATE='createUTF8mb4innodb_large_prefix' LARGE_PREFIX='true'
+    - CREATE='createUTF8' LARGE_PREFIX='false' ROW_FORMAT='dynamic'
+    - CREATE='createUTF8' LARGE_PREFIX='true' ROW_FORMAT='dynamic'
+    - CREATE='createUTF8' LARGE_PREFIX='false' ROW_FORMAT='compact'
+    - CREATE='createUTF8' LARGE_PREFIX='true' ROW_FORMAT='compact'
+    - CREATE='createUTF8mb4' LARGE_PREFIX='false' ROW_FORMAT='dynamic'
+    - CREATE='createUTF8mb4' LARGE_PREFIX='true' ROW_FORMAT='dynamic'
+    - CREATE='createUTF8mb4' LARGE_PREFIX='false' ROW_FORMAT='compact'
+    - CREATE='createUTF8mb4' LARGE_PREFIX='true' ROW_FORMAT='compact'
+    - CREATE='createMetaKeyNotMB4' LARGE_PREFIX='false' ROW_FORMAT='dynamic'
+    - CREATE='createMetaKeyNotMB4' LARGE_PREFIX='true' ROW_FORMAT='dynamic'
+    - CREATE='createMetaKeyNotMB4' LARGE_PREFIX='false' ROW_FORMAT='compact'
+    - CREATE='createMetaKeyNotMB4' LARGE_PREFIX='true' ROW_FORMAT='compact'
+    - CREATE='createMetaKeyNotMB4IndexWith191' LARGE_PREFIX='true' ROW_FORMAT='dynamic'
+    - CREATE='createMetaKeyNotMB4IndexWith191' LARGE_PREFIX='false' ROW_FORMAT='dynamic'
+    - CREATE='createMetaKeyNotMB4IndexWith191' LARGE_PREFIX='true' ROW_FORMAT='compact'
+    - CREATE='createMetaKeyNotMB4IndexWith191' LARGE_PREFIX='false' ROW_FORMAT='compact'
+    - CREATE='createUTF8mb4innodb_large_prefix' LARGE_PREFIX='true' ROW_FORMAT='dynamic'
+    - CREATE='createUTF8mb4innodb_large_prefix' LARGE_PREFIX='false' ROW_FORMAT='dynamic'
+    - CREATE='createUTF8mb4innodb_large_prefix' LARGE_PREFIX='true' ROW_FORMAT='compact'
+    - CREATE='createUTF8mb4innodb_large_prefix' LARGE_PREFIX='false' ROW_FORMAT='compact'
 before_install:
     - sudo apt-get install -y pv
 before_script:
@@ -26,6 +36,11 @@ script:
             sudo service mysql restart
         fi
     - mysql < sql/$CREATE.sql
+    - |
+        if [ "$ROW_FORMAT" = 'dynamic' ]
+        then
+            mysql < sql/rowFormatDynamic.sql
+        fi
     - pv sql/import.sql | mysql app
     - mysql < sql/oldQuery.sql
     - mysql < sql/newQuery.sql
