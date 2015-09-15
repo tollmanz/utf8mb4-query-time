@@ -24,6 +24,11 @@ script:
     - mysql < sql/oldQuery.sql
     - mysql < sql/newQuery.sql
     - mysql < sql/drop.sql
+    - mysql < sql/createMetaKeyNotMB4IndexWith191.sql
+    - pv sql/import.sql | mysql app
+    - mysql < sql/oldQuery.sql
+    - mysql < sql/newQuery.sql
+    - mysql < sql/drop.sql
     - sudo cp mysql-custom-innodb_large_prefix.cnf /etc/mysql/conf.d/mysql-custom.cnf
     - sudo service mysql restart
     - mysql < sql/createMetaKeyNotMB4.sql
