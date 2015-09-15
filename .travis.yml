@@ -1,42 +1,32 @@
 language: node_js
 node_js:
     - stable
+env:
+    - CREATE='createUTF8' LARGE_PREFIX='false'
+    - CREATE='createUTF8' LARGE_PREFIX='true'
+    - CREATE='createUTF8mb4' LARGE_PREFIX='false'
+    - CREATE='createUTF8mb4' LARGE_PREFIX='true'
+    - CREATE='createMetaKeyNotMB4' LARGE_PREFIX='false'
+    - CREATE='createMetaKeyNotMB4' LARGE_PREFIX='true'
+    - CREATE='createMetaKeyNotMB4IndexWith191' LARGE_PREFIX='true'
+    - CREATE='createMetaKeyNotMB4IndexWith191' LARGE_PREFIX='true'
+    - CREATE='createUTF8mb4innodb_large_prefix' LARGE_PREFIX='true'
+    - CREATE='createUTF8mb4innodb_large_prefix' LARGE_PREFIX='true'
 before_install:
     - sudo apt-get install -y pv
 before_script:
-    - sudo cp mysql-custom.cnf /etc/mysql/conf.d/mysql-custom.cnf
-    - sudo service mysql restart
     - node index.js > sql/import.sql
 script:
+    - cat sql/$CREATE.sql
     - mysql -e 'CREATE DATABASE app;'
-    - mysql < sql/createUTF8.sql
+    - |
+        if [ "$LARGE_PREFIX" = "true" ]
+        then
+            sudo cp mysql-custom-innodb_large_prefix.cnf /etc/mysql/conf.d/mysql-custom.cnf
+            sudo service mysql restart
+        fi
+    - mysql < sql/$CREATE.sql
     - pv sql/import.sql | mysql app
     - mysql < sql/oldQuery.sql
     - mysql < sql/newQuery.sql
     - mysql < sql/drop.sql
-    - mysql < sql/createUTF8mb4.sql
-    - pv sql/import.sql | mysql app
-    - mysql < sql/oldQuery.sql
-    - mysql < sql/newQuery.sql
-    - mysql < sql/drop.sql
-    - mysql < sql/createMetaKeyNotMB4.sql
-    - pv sql/import.sql | mysql app
-    - mysql < sql/oldQuery.sql
-    - mysql < sql/newQuery.sql
-    - mysql < sql/drop.sql
-    - mysql < sql/createMetaKeyNotMB4IndexWith191.sql
-    - pv sql/import.sql | mysql app
-    - mysql < sql/oldQuery.sql
-    - mysql < sql/newQuery.sql
-    - mysql < sql/drop.sql
-    - sudo cp mysql-custom-innodb_large_prefix.cnf /etc/mysql/conf.d/mysql-custom.cnf
-    - sudo service mysql restart
-    - mysql < sql/createMetaKeyNotMB4.sql
-    - pv sql/import.sql | mysql app
-    - mysql < sql/oldQuery.sql
-    - mysql < sql/newQuery.sql
-    - mysql < sql/drop.sql
-    - mysql < sql/createUTF8mb4innodb_large_prefix.sql
-    - pv sql/import.sql | mysql app
-    - mysql < sql/oldQuery.sql
-    - mysql < sql/newQuery.sql
