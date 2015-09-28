@@ -1,6 +1,8 @@
 language: node_js
 node_js:
     - stable
+addons:
+    mariadb: '10.0'
 env:
     - CREATE='createUTF8' LARGE_PREFIX='false' ROW_FORMAT='dynamic'
     - CREATE='createUTF8' LARGE_PREFIX='true' ROW_FORMAT='dynamic'
