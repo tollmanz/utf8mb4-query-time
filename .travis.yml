@@ -43,6 +43,7 @@ script:
         fi
     - pv sql/import.sql | mysql app
     - mysql < sql/oldQuery.sql
+    - mysql < sql/oldQueryForceIndex.sql
     - mysql < sql/newQuery.sql
     - mysql < sql/newQueryForceIndex.sql
     - mysql < sql/drop.sql
